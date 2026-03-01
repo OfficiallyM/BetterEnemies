@@ -12,10 +12,7 @@ namespace BetterEnemies.Components
 		public static event Action<breakchilds, Enums.Bone?> OnHit;
 
 		public breakablescript breakable;
-		private List<breakchilds> _headBones = new List<breakchilds>();
-		private List<breakchilds> _chestBones = new List<breakchilds>();
-		private List<breakchilds> _armBones = new List<breakchilds>();
-		private List<breakchilds> _legBones = new List<breakchilds>();
+		private Dictionary<breakchilds, Enums.Bone> _boneMap = new Dictionary<breakchilds, Enums.Bone>();
 
 		private const float HeadModifier = 1f;
 		private const float ChestModifier = 0.5f;
@@ -45,22 +42,22 @@ namespace BetterEnemies.Components
 				breakChild.P = breakable;
 				if (IsHeadBone(boneName))
 				{
-					_headBones.Add(breakChild);
+					_boneMap[breakChild] = Enums.Bone.Head;
 					breakChild.modifier = HeadModifier;
 				}
 				else if (IsChestBone(boneName))
 				{
-					_chestBones.Add(breakChild);
+					_boneMap[breakChild] = Enums.Bone.Chest;
 					breakChild.modifier = ChestModifier;
 				}
 				else if (IsArmBone(boneName))
 				{
-					_armBones.Add(breakChild);
+					_boneMap[breakChild] = Enums.Bone.Arm;
 					breakChild.modifier = ArmModifier;
 				}
 				else if (IsLegBone(boneName))
 				{
-					_legBones.Add(breakChild);
+					_boneMap[breakChild] = Enums.Bone.Leg;
 					breakChild.modifier = LegModifier;
 				}
 			}
@@ -68,23 +65,7 @@ namespace BetterEnemies.Components
 
 		public Enums.Bone? GetHitBone(breakchilds hit)
 		{
-			foreach (var bone in _headBones)
-				if (bone == hit)
-					return Enums.Bone.Head;
-
-			foreach (var bone in _chestBones)
-				if (bone == hit)
-					return Enums.Bone.Chest;
-
-			foreach (var bone in _armBones)
-				if (bone == hit)
-					return Enums.Bone.Arm;
-
-			foreach (var bone in _legBones)
-				if (bone == hit)
-					return Enums.Bone.Leg;
-
-			return null;
+			return _boneMap.TryGetValue(hit, out var bone) ? bone : (Enums.Bone?)null;
 		}
 
 		internal void RaiseOnHit(breakchilds hit)
