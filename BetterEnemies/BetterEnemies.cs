@@ -1,4 +1,5 @@
-﻿using TLDLoader;
+﻿using BetterEnemies.Components;
+using TLDLoader;
 
 namespace BetterEnemies
 {
@@ -8,6 +9,7 @@ namespace BetterEnemies
 		public override string Name => "Better Enemies";
 		public override string Author => "M-";
 		public override string Version => "0.0.1";
+		public override bool LoadInDB => true;
 		public override bool UseLogger => true;
 		public override bool UseHarmony => true;
 
@@ -16,6 +18,12 @@ namespace BetterEnemies
 		public BetterEnemies()
 		{
 			I = this;
+		}
+
+		public override void DbLoad()
+		{
+			if (itemdatabase.d.gmunkas01.GetComponent<CharacteristicsHandler>() == null)
+				itemdatabase.d.gmunkas01.AddComponent<CharacteristicsHandler>();
 		}
 	}
 }

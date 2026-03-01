@@ -1,4 +1,5 @@
 ﻿using BetterEnemies.Cache;
+using BetterEnemies.Utilities;
 using HarmonyLib;
 using UnityEngine;
 
@@ -37,12 +38,13 @@ namespace BetterEnemies.Harmony
 			if (hitRaycast == null)
 				return;
 
-			float multiplier = GetZoneMultiplier(hitRaycast.Value, munkas);
-			force *= multiplier;
-			return;
+			Logging.LogDebug($"[PRE] Force: {force}");
+			float modifier = GetZoneModifier(hitRaycast.Value, munkas);
+			force *= modifier;
+			Logging.LogDebug($"[POST] Force: {force} (Modifier: {modifier}) - ShootHealth: {munkas.breakable.shootHealth}");
 		}
 
-		private static float GetZoneMultiplier(RaycastHit hit, newAiScript munkas)
+		private static float GetZoneModifier(RaycastHit hit, newAiScript munkas)
 		{
 			// Get all colliders in a small radius at the hit point.
 			Collider[] nearby = Physics.OverlapSphere(hit.point, 0.5f);
@@ -67,6 +69,7 @@ namespace BetterEnemies.Harmony
 
 			if (bestBone != null)
 			{
+				Logging.LogDebug($"Hit bone: {bestBone.name}");
 				if (IsHeadBone(bestBone.name.ToLower()))
 					return 1f;
 
