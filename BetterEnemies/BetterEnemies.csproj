@@ -41,10 +41,6 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Harmony\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="move /Y &quot;$(TargetPath)&quot; &quot;%userprofile%\Documents\TheLongDrive\Mods\$(TargetFileName)&quot;" />
   </Target>
