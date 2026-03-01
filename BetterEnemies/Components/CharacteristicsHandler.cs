@@ -48,12 +48,6 @@ namespace BetterEnemies.Components
 			Toughness = RollTrait(rng);
 
 			ApplyCharacteristics();
-
-			// Reset default modifiers to ensure damage is handled by our damage zones.
-			foreach (var breakchild in gameObject.GetComponentsInChildren<breakchilds>())
-			{
-				breakchild.modifier = 1f;
-			}
 		}
 
 		private TraitLevel RollTrait(System.Random rng)

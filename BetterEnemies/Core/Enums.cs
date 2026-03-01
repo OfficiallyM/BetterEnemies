@@ -8,5 +8,13 @@
 			Normal,
 			Enhanced
 		}
+
+		public enum Bone
+		{
+			Head,
+			Chest,
+			Leg,
+			Arm
+		}
 	}
 }

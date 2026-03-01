@@ -22,8 +22,12 @@ namespace BetterEnemies
 
 		public override void DbLoad()
 		{
-			if (itemdatabase.d.gmunkas01.GetComponent<CharacteristicsHandler>() == null)
-				itemdatabase.d.gmunkas01.AddComponent<CharacteristicsHandler>();
+			var munkas = itemdatabase.d.gmunkas01;
+			if (munkas.GetComponent<CharacteristicsHandler>() == null)
+				munkas.AddComponent<CharacteristicsHandler>();
+
+			if (munkas.GetComponent<DamageZoneHandler>() == null)
+				munkas.AddComponent<DamageZoneHandler>();
 		}
 	}
 }
