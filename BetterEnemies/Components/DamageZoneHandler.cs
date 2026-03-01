@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace BetterEnemies.Components
 {
+	[DisallowMultipleComponent]
 	public class DamageZoneHandler : MonoBehaviour
 	{
 		public static event Action<breakchilds, Enums.Bone?> OnHit;
