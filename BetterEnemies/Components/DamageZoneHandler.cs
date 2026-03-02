@@ -12,12 +12,13 @@ namespace BetterEnemies.Components
 		public static event Action<breakchilds, Enums.Bone?> OnHit;
 
 		public breakablescript breakable;
-		private Dictionary<breakchilds, Enums.Bone> _boneMap = new Dictionary<breakchilds, Enums.Bone>();
 
 		private const float HeadModifier = 1f;
 		private const float ChestModifier = 0.5f;
 		private const float ArmModifier = 0.25f;
 		private const float LegModifier = 0.25f;
+
+		private Dictionary<breakchilds, Enums.Bone> _boneMap = new Dictionary<breakchilds, Enums.Bone>();
 
 		public void Start()
 		{
