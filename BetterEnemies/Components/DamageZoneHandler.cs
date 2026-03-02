@@ -9,7 +9,7 @@ namespace BetterEnemies.Components
 	[DisallowMultipleComponent]
 	public class DamageZoneHandler : MonoBehaviour
 	{
-		public static event Action<breakchilds, Enums.Bone?> OnHit;
+		public event Action<breakchilds, Enums.Bone?, float> OnHit;
 
 		public breakablescript breakable;
 
@@ -69,8 +69,8 @@ namespace BetterEnemies.Components
 			return _boneMap.TryGetValue(hit, out var bone) ? bone : (Enums.Bone?)null;
 		}
 
-		internal void RaiseOnHit(breakchilds hit)
-			=> OnHit?.Invoke(hit, GetHitBone(hit));
+		internal void RaiseOnHit(breakchilds hit, float force)
+			=> OnHit?.Invoke(hit, GetHitBone(hit), force);
 
 		private static bool IsHeadBone(string name) =>
 			name.Contains("head");

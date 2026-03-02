@@ -28,6 +28,9 @@ namespace BetterEnemies
 
 			if (munkas.GetComponent<DamageZoneHandler>() == null)
 				munkas.AddComponent<DamageZoneHandler>();
+
+			if (munkas.GetComponent<InjuryHandler>() == null)
+				munkas.AddComponent<InjuryHandler>();
 		}
 	}
 }

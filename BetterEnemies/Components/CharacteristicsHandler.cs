@@ -60,7 +60,7 @@ namespace BetterEnemies.Components
 
 		private void ApplyCharacteristics()
 		{
-			Logging.LogDebug($"Characteristics:\nSpeed: {Speed}\nStrength: {Strength}\nToughness: {Toughness}");
+			Logging.LogDebug($"[CharacteristicsHandler] Characteristics:\nSpeed: {Speed}\nStrength: {Strength}\nToughness: {Toughness}");
 
 			ApplyPhysical();
 			ApplyVisual();
