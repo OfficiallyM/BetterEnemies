@@ -8,7 +8,7 @@ namespace BetterEnemies
 		public override string ID => "M_BetterEnemies";
 		public override string Name => "Better Enemies";
 		public override string Author => "M-";
-		public override string Version => "0.1.0";
+		public override string Version => "0.1.1";
 		public override bool LoadInDB => true;
 		public override bool UseLogger => true;
 		public override bool UseHarmony => true;

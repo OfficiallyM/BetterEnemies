@@ -12,6 +12,7 @@ namespace BetterEnemies.Components
 		public TraitLevel Strength { get; private set; }
 		public TraitLevel Toughness { get; private set; }
 
+		public tosaveitemscript save;
 		public newAiScript ai;
 		public breakablescript breakable;
 
@@ -26,17 +27,11 @@ namespace BetterEnemies.Components
 
 		public void Start()
 		{
-			tosaveitemscript save = gameObject.GetComponent<tosaveitemscript>();
-			if (save == null)
-			{
-				Destroy(this);
-				return;
-			}
-
+			save = gameObject.GetComponent<tosaveitemscript>();
 			ai = gameObject.GetComponent<newAiScript>();
 			breakable = ai?.breakable;
 
-			if (ai == null || breakable == null)
+			if (save == null || ai == null || breakable == null)
 			{
 				Destroy(this);
 				return;
@@ -78,7 +73,8 @@ namespace BetterEnemies.Components
 			if (Strength != TraitLevel.None)
 				ai.damage *= Strength == TraitLevel.Enhanced ? 2.5f : 1.75f;
 
-			if (Toughness != TraitLevel.None)
+			// Don't apply health multiplier on save load.
+			if (Toughness != TraitLevel.None && !save.loaded)
 			{
 				float modifier = Toughness == TraitLevel.Enhanced ? 7.5f : 3f;
 				ai.breakable.health *= modifier;
