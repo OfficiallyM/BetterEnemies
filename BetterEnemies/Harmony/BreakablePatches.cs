@@ -18,6 +18,19 @@ namespace BetterEnemies.Harmony
 		}
 	}
 
+	[HarmonyPatch(typeof(breakchilds), nameof(breakchilds.TryBreak))]
+	public static class Patch_breakchilds_TryBreak
+	{
+		public static void Prefix(breakchilds __instance, float force)
+		{
+			var zoneHandler = __instance.transform.root?.GetComponent<DamageZoneHandler>();
+			if (zoneHandler == null) return;
+			float modifiedForce = force * __instance.modifier;
+			Logging.LogDebug($"[TryBreak] [{__instance.name}] Hit {(zoneHandler.GetHitBone(__instance)?.ToString() ?? "Unknown")} - Modifier: {__instance.modifier} - Damage: {modifiedForce} / {__instance.P.health}");
+			zoneHandler.RaiseOnHit(__instance, modifiedForce);
+		}
+	}
+
 	// Improve killing munkas with vehicles.
 	[HarmonyPatch(typeof(breakablescript), "OnCollisionEnter")]
 	public static class Patch_breakablescript_OnCollisionEnter

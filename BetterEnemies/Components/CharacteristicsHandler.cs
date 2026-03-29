@@ -16,7 +16,8 @@ namespace BetterEnemies.Components
 		public newAiScript ai;
 		public breakablescript breakable;
 
-		private const float BaseHealthModifier = 1.5f;
+		private const float BaseHealthModifier = 6f;
+		private const float BaseShootHealthModifier = 1.5f;
 
 		private static readonly Color SkinNormal = new Color(0.6f, 0.75f, 0.85f);
 		private static readonly Color SkinEnhanced = new Color(0.5f, 0.55f, 0.75f);
@@ -82,14 +83,15 @@ namespace BetterEnemies.Components
 			{
 				if (Toughness != TraitLevel.None)
 				{
-					float modifier = Toughness == TraitLevel.Enhanced ? 8f : 4f;
+					float modifier = Toughness == TraitLevel.Enhanced ? 24f : 12f;
+					float shootModifier = Toughness == TraitLevel.Enhanced ? 8f : 4f;
 					ai.breakable.health *= modifier;
-					ai.breakable.shootHealth *= modifier;
+					ai.breakable.shootHealth *= shootModifier;
 				}
 				else
 				{
 					ai.breakable.health *= BaseHealthModifier;
-					ai.breakable.shootHealth *= BaseHealthModifier;
+					ai.breakable.shootHealth *= BaseShootHealthModifier;
 				}
 			}
 
