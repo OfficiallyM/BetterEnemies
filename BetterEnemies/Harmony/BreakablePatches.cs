@@ -13,7 +13,7 @@ namespace BetterEnemies.Harmony
 			var zoneHandler = __instance.transform.root?.GetComponent<DamageZoneHandler>();
 			if (zoneHandler == null) return;
 			float modifiedForce = force * __instance.modifier;
-			Logging.LogDebug($"[TryBreakShoot] [{__instance.name}] Hit {(zoneHandler.GetHitBone(__instance)?.ToString() ?? "Unknown")} - Modifier: {__instance.modifier}");
+			Logging.LogDebug($"[TryBreakShoot] [{__instance.name}] Hit {(zoneHandler.GetHitBone(__instance)?.ToString() ?? "Unknown")} - Modifier: {__instance.modifier} - Damage: {modifiedForce} / {__instance.P.shootHealth}");
 			zoneHandler.RaiseOnHit(__instance, modifiedForce);
 		}
 	}

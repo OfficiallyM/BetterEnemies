@@ -5,10 +5,11 @@ namespace BetterEnemies
 {
 	public class BetterEnemies : Mod
 	{
+		private string _version = "0.2.0";
 		public override string ID => "M_BetterEnemies";
 		public override string Name => "Better Enemies";
 		public override string Author => "M-";
-		public override string Version => "0.1.1";
+		public override string Version => _version;
 		public override bool LoadInDB => true;
 		public override bool UseLogger => true;
 		public override bool UseHarmony => true;
@@ -18,6 +19,10 @@ namespace BetterEnemies
 		public BetterEnemies()
 		{
 			I = this;
+
+#if DEBUG
+			_version += "-DEV";
+#endif
 		}
 
 		public override void DbLoad()

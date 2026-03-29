@@ -13,10 +13,10 @@ namespace BetterEnemies.Components
 
 		public breakablescript breakable;
 
-		private const float HeadModifier = 1f;
-		private const float ChestModifier = 0.5f;
-		private const float ArmModifier = 0.25f;
-		private const float LegModifier = 0.25f;
+		private const float HeadModifier = 0.8f;
+		private const float ChestModifier = 0.4f;
+		private const float ArmModifier = 0.15f;
+		private const float LegModifier = 0.15f;
 
 		private Dictionary<breakchilds, Enums.Bone> _boneMap = new Dictionary<breakchilds, Enums.Bone>();
 

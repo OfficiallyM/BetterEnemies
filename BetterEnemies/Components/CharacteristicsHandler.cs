@@ -16,6 +16,8 @@ namespace BetterEnemies.Components
 		public newAiScript ai;
 		public breakablescript breakable;
 
+		private const float BaseHealthModifier = 1.5f;
+
 		private static readonly Color SkinNormal = new Color(0.6f, 0.75f, 0.85f);
 		private static readonly Color SkinEnhanced = new Color(0.5f, 0.55f, 0.75f);
 
@@ -48,8 +50,8 @@ namespace BetterEnemies.Components
 		private TraitLevel RollTrait(System.Random rng)
 		{
 			double roll = rng.NextDouble();
-			if (roll < 0.05) return TraitLevel.Enhanced;
-			if (roll < 0.30) return TraitLevel.Normal;
+			if (roll < 0.10) return TraitLevel.Enhanced;
+			if (roll < 0.40) return TraitLevel.Normal;
 			return TraitLevel.None;
 		}
 
@@ -63,6 +65,8 @@ namespace BetterEnemies.Components
 
 		private void ApplyPhysical()
 		{
+			Logging.LogDebug($"[PRE] Stats:\nHealth: {ai.breakable.health:F2}\nShooth health: {ai.breakable.shootHealth}\nMax speed: {ai.maxSpeed}\nWalk dist: {ai.walkDist}\nRun dist: {ai.runDist}\nDamage: {ai.damage}");
+
 			if (Speed != TraitLevel.None)
 			{
 				ai.maxSpeed *= Speed == TraitLevel.Enhanced ? 1.8f : 1.4f;
@@ -74,12 +78,22 @@ namespace BetterEnemies.Components
 				ai.damage *= Strength == TraitLevel.Enhanced ? 2.5f : 1.75f;
 
 			// Don't apply health multiplier on save load.
-			if (Toughness != TraitLevel.None && !save.loaded)
+			if (!save.loaded)
 			{
-				float modifier = Toughness == TraitLevel.Enhanced ? 7.5f : 3f;
-				ai.breakable.health *= modifier;
-				ai.breakable.shootHealth *= modifier;
+				if (Toughness != TraitLevel.None)
+				{
+					float modifier = Toughness == TraitLevel.Enhanced ? 8f : 4f;
+					ai.breakable.health *= modifier;
+					ai.breakable.shootHealth *= modifier;
+				}
+				else
+				{
+					ai.breakable.health *= BaseHealthModifier;
+					ai.breakable.shootHealth *= BaseHealthModifier;
+				}
 			}
+
+			Logging.LogDebug($"[POST] Stats:\nHealth: {ai.breakable.health:F2}\nShooth health: {ai.breakable.shootHealth}\nMax speed: {ai.maxSpeed}\nWalk dist: {ai.walkDist}\nRun dist: {ai.runDist}\nDamage: {ai.damage}");
 		}
 
 		private void ApplyVisual()
